@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  app_writer:
+    image: ubuntu
+    command: sh -c "while true; do date | tee -a /var/log/shared/app.log; sleep 1; done"
+    volumes:
+      - ./shared/:/var/log/shared/
+  app_reader:
+    image: ubuntu
+    command: sh -c "tail -F /var/log/shared/app.log"
+    volumes:
+      - ./shared/:/var/log/shared/
